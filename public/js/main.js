@@ -28,6 +28,22 @@ function HacktoberfestChecker() {
 HacktoberfestChecker.prototype.constructor = function() {
     this.setFocus();
     this.bindEvents();
+    this.initialize();
+};
+
+HacktoberfestChecker.prototype.initialize = function() {
+  if ($('#userImage').length) {
+    this.userImageLazyLoad();
+  }
+};
+
+HacktoberfestChecker.prototype.userImageLazyLoad = function() {
+  const imageNode = $('#userImage');
+  const imageElementInstance = new Image();
+  imageElementInstance.onload = function () {
+    imageNode.removeClass('o-0');
+  };
+  imageElementInstance.src = imageNode.attr('src');
 };
 /**
  * the bind events function can be extended as the app grows
@@ -65,17 +81,32 @@ HacktoberfestChecker.prototype.getUsernameIssues = function(e) {
 
 };
 
+HacktoberfestChecker.prototype.loadSocialWidgets = function() {
+    window.twttr.widgets.load();
+    window.FB.XFBML.parse();
+};
+
 /**
  * In case of success during API call, display the HTML
  */
-HacktoberfestChecker.prototype.usernameIssuesSuccess = function(html) {
+HacktoberfestChecker.prototype.usernameIssuesSuccess = function(html, textStatus, xhr) {
     this.results.html(html);
+    this.loadSocialWidgets();
+
+    if (xhr.status === 200) {
+      this.userImageLazyLoad();
+    }
 };
+
 /**
  * In case of an error during API call, display an error message
  */
-HacktoberfestChecker.prototype.usernameIssuesError = function() {
-    this.results.html(this.makeError(this.errors.API.username));
+HacktoberfestChecker.prototype.usernameIssuesError = function(xhr) {
+    if (xhr.status === 404) {
+      this.results.html(xhr.response);
+    } else {
+      this.results.html(this.makeError(this.errors.API.username));
+    }
 };
 
 HacktoberfestChecker.prototype.getName = function() {
@@ -114,3 +145,30 @@ HacktoberfestChecker.prototype.updateHistory = function(name) {
         history.replaceState({}, name, '?username=' + name);
     }
 };
+
+// Functions related to the personalization functions
+function redirectToUserPage() {
+    // Get the cached user.
+    const me = localStorage.myGitHub;
+    if (me) {
+        window.location.href = `/?username=${me}`;
+    } else {
+        window.location.href = '/'; // Username not saved, go to main page.
+    }
+}
+
+function saveUserPage() {
+    // Save username into localStorage. Recall username by visiting /me.
+    localStorage.myGitHub = $('[name="username"]').val();
+    // Provide some sort of visual feedback. Redirect to that page.
+    window.location.href='/me';
+}
+
+$(document).on('ready', () => {
+    // Save is bound to button press
+    $('#saveUser').on('click', () => saveUserPage());
+    // Works with /me or /me/
+    if (window.location.pathname.startsWith('/me')) {
+        redirectToUserPage();
+    }
+});

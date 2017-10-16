@@ -1,10 +1,28 @@
 {{#exists prs}}
     <div class="tc white">
+        <div class="flex justify-center">
+            <div class="pa1">
+                <a class="twitter-share-button white no-underline f6"
+                    href="https://twitter.com/share"
+                    data-size="large"
+                    data-text="My progress on hacktoberfest {{ prs.length }} / 4"
+                    data-url="https://hacktoberfestchecker.herokuapp.com/?username={{username}}"
+                    data-hashtags="hacktoberfest, hacktoberfestchecker">
+                    Tweet
+                </a>
+            </div>
+            <div class="fb-share-button pa1"
+                data-href="https://hacktoberfestchecker.herokuapp.com/?username={{username}}"
+                data-layout="button"
+                data-size="large">
+                    <a class="fb-xfbml-parse-ignore" href="https://www.facebook.com/sharer/sharer.php">Share</a>
+            </div>
+        </div>
         <div class="lh-copy pa3 flex flex-wrap justify-center content-center-ns br2 center mt2 overflow-hidden w-50-ns w-80-m w-90">
             <div class="mh3">
                 {{#if userImage}}
                     <a href = "https://github.com/{{username}}" target="_blank">
-                        <img class="tc br-100 w4 bw2 b--solid b--near-white" src="{{userImage}}"/>
+                        <img id="userImage" alt="GitHub profile image for {{ username }}" class="tc br-100 w4 h4 bw2 b--solid b--near-white u-bgc--f4f4f4 overflow-hidden o-0 glow" src="{{userImage}}" />
                     </a>
                 {{/if}}
             </div>
@@ -15,7 +33,7 @@
         </div>
     </div>
 
-    {{#if isNotComplete }} 
+    {{#if isNotComplete }}
         <div class="flex flex-wrap justify-center content-center">
             <div class="light-gray">
                 Look at the following <a href="https://github.com/search?q=label:hacktoberfest+state:open+type:issue" class="light-gray" target="_blank">issues</a> and get hacking!</a>
@@ -54,5 +72,9 @@
             {{/each}}
         </div>
     {{/if}}
-{{/exists}}
 
+    <div class="br2 center mt5 overflow-hidden w-50-ns w-80-m w-90 mt2">
+        <button class="bg-orange white center mt2 h2 bn pointer br1 pv0 ph3 db-ns" id="saveUser">This is Me</button>
+        <p class='light-silver center tc-ns'>In the future, you can find your PRs by visiting <a href='{{ hostname }}/me' class='link white underline-hover'>{{ hostname }}/me</a> on this device.</p>
+    </div>
+{{/exists}}
