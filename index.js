@@ -40,14 +40,14 @@ const hbs = exphbs.create({
 });
 
 const github = new GitHubApi({
-	version: '3.0.0',
-	debug: false,
-	protocol: 'https',
-	host: 'api.github.com',
-	timeout: 5000,
-	headers: {
-		'user-agent': 'Hacktoberfest Checker'
-	}
+    version: '3.0.0',
+    debug: false,
+    protocol: 'https',
+    host: 'api.github.com',
+    timeout: 5000,
+    headers: {
+        'user-agent': 'Hacktoberfest Checker'
+    }
 });
 
 if (process.env.GITHUB_TOKEN) {
@@ -63,6 +63,11 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('port', process.env.PORT || 5000);
 app.set('github', github);
+app.locals = {
+    config: {
+        'ga': process.env.GA_CODE
+    }
+};
 
 app.use(compression());
 app.use(logger('dev'));

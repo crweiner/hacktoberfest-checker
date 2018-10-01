@@ -23,24 +23,21 @@
     <title>Hacktoberfest Checker</title>
     <link rel="stylesheet" href="/vendor/tachyons/css/tachyons.min.css"/>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/stars.css">
 </head>
 <body class="h-100 min-vh-100 overflow-y-auto flex flex-column">
     {{> github_corner}}
 
+    <div class="flex flex-none items-center justify-center pa2-ns pa3 bg-white orange">
+        <svg class="w1" data-icon="info" viewBox="0 0 32 32" style="fill:currentcolor">
+            <title>info</title>
+            <path d="M16 0 A16 16 0 0 1 16 32 A16 16 0 0 1 16 0 M19 15 L13 15 L13 26 L19 26 z M16 6 A3 3 0 0 0 16 12 A3 3 0 0 0 16 6"></path>
+        </svg>
+        <span class="lh-title ml3 mr4">
+            Remember to <a href="https://hacktoberfest.digitalocean.com/sign_up/register" target="_blank" class="orange underline">register</a> to be eligible for the tee!
+        </span>
+    </div>
+
     <div class="ph3-ns main-content">
-      <div class="db fixed aspect-ratio--object stars-three">
-
-      </div>
-      <div class="db fixed aspect-ratio--object stars">
-
-      </div>
-      <div class="db fixed aspect-ratio--object cloud">
-
-      </div>
-      <div class="db fixed aspect-ratio--object stars-two">
-
-      </div>
         <div class="cf ph2-ns">
             {{> header}}
             {{{body}}}
@@ -50,7 +47,7 @@
     {{> footer}}
 
     <script src="/vendor/zepto/dist/zepto.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/main-compiled.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -59,7 +56,7 @@
             e=o.createElement(i);r=o.getElementsByTagName(i)[0];
             e.src='https://www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-68877006-1','auto');ga('send','pageview');
+        ga('create','{{ config.ga }}','auto');ga('send','pageview');
     </script>
     <!-- Twitter -->
     <script>
