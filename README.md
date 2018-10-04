@@ -1,6 +1,7 @@
 # Hacktoberfest Checker
 
 [![Build Status](https://travis-ci.org/jenkoian/hacktoberfest-checker.svg?branch=master)](https://travis-ci.org/jenkoian/hacktoberfest-checker)
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 Useful checker web app to see how close you are to achieving the requirements for a free t-shirt as part of [Hacktoberfest](https://hacktoberfest.digitalocean.com/).
 
@@ -16,7 +17,7 @@ React on the front end. I did make a start, and may look to release it midway th
 along with me, keep an eye on the react branch. Other than that, I've done a simple reskin and more or less
 kept it as it were last year (obviously updated the year and new PR requirement).
 
-I will add some ticket when I think of them of improvements etc. feel free to suggest any you can think of though too.
+I will add some tickets when I think of them of improvements etc. feel free to suggest any you can think of though too.
 
 You may notice the domain has changed, the old heroku app is still up and I will deploy to both, but the new domain is hosted on 
 digital ocean as they were kind enough to offer me some hosting vouchers. 
@@ -25,7 +26,7 @@ Happy hacking!
 
 ## Requirements
 
-* Node v10.0.0
+* Node v8+
 > Recommended to use [NVM](https://github.com/creationix/nvm)
 
 ## Running the app
@@ -50,6 +51,10 @@ As an alternative to the section above, you can run the app within a Docker cont
 * `$ docker build -t hacktoberfest-checker .`
 
 * `$ docker run -p 5000:5000 -e "GITHUB_TOKEN=YOUR_TOKEN" hacktoberfest-checker`
+
+or use the docker-compose
+
+* `$ docker-compose up --build`
 
 ## License
 
